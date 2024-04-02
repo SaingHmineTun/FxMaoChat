@@ -1,5 +1,6 @@
-package it.saimao.maochat;
+package it.saimao.maochat.controller;
 
+import it.saimao.maochat.ChatApplication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class ChoiceController implements Initializable {
 
     @FXML
     private Button btCreate;
@@ -61,6 +62,8 @@ public class HelloController implements Initializable {
 
         if (!tfCreatePort.getText().isEmpty()) {
 
+
+
             new Thread(() -> {
                 while (true) {
                     try {
@@ -87,15 +90,14 @@ public class HelloController implements Initializable {
     private void switchToChatPage(BufferedReader bufferedReader, PrintWriter printWriter) {
         Stage stage = (Stage) btCreate.getScene().getWindow();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/chat-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ChatApplication.class.getResource("/fxml/chat-view.fxml"));
         fxmlLoader.setController(new ChatController(bufferedReader, printWriter));
-        Scene scene = null;
+        Scene scene;
         try {
             scene = new Scene(fxmlLoader.load(), 320, 240);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        stage.setTitle("Hello!");
         stage.setScene(scene);
     }
 

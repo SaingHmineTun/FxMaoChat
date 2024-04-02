@@ -1,5 +1,9 @@
-package it.saimao.maochat;
+package it.saimao.maochat.controller;
 
+import it.saimao.maochat.model.ChatMessage;
+import it.saimao.maochat.tool.ChatMessageCellFactory;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -7,11 +11,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
@@ -28,26 +31,39 @@ public class ChatController implements Initializable {
 
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
-    private List<ChatMessage> messages;
+    private ObservableList<ChatMessage> messages;
 
 
     public ChatController(BufferedReader bufferedReader, PrintWriter printWriter) {
-        btSend.setOnAction(event -> System.out.println("Hello"));
         this.bufferedReader = bufferedReader;
         this.printWriter = printWriter;
-        sampleMessage();
-//        startReaderThread();
-//        startWriterThread();
-    }
-
-    private void sampleMessage() {
-        messages = new ArrayList<>();
-        messages.add(new ChatMessage("Sai Mao", "I love Kham Hom", new Date()));
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lvMessages.setCellFactory(new ChatMessageCellFactory());
+        startReaderThread();
+        btSend.setOnAction(event -> {
 
+            String message = tfMessage.getText();
+            printWriter.println(message);
+            lvMessages.getItems().add(new ChatMessage("Me", message, new Date()));
+        });
     }
+
+    private void startReaderThread() {
+        new Thread(() -> {
+            String message;
+            while (true) {
+                try {
+                    message = bufferedReader.readLine();
+                    String finalMessage = message;
+                    Platform.runLater(() -> lvMessages.getItems().add(new ChatMessage("Others", finalMessage, new Date())));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+    }
+
 }
