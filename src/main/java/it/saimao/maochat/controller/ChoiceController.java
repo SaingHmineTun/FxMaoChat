@@ -1,12 +1,13 @@
 package it.saimao.maochat.controller;
 
-import it.saimao.maochat.ChatApplication;
+import it.saimao.maochat.view.ChatApplication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -18,6 +19,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChoiceController implements Initializable {
 
@@ -35,6 +38,9 @@ public class ChoiceController implements Initializable {
 
     @FXML
     private TextField tfJoinPort;
+
+    @FXML
+    private Label lbConnecting;
 
 
     private void initUi() {
@@ -62,9 +68,8 @@ public class ChoiceController implements Initializable {
 
         if (!tfCreatePort.getText().isEmpty()) {
 
-
-
-            new Thread(() -> {
+            ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+            executor.submit(() -> {
                 while (true) {
                     try {
                         int port = Integer.parseInt(tfCreatePort.getText());
@@ -81,10 +86,33 @@ public class ChoiceController implements Initializable {
                         System.out.println("Invalid Port Number!");
                     }
                 }
-            }).start();
+            });
+
+
+//            new Thread(() -> {
+//                while (true) {
+//                    try {
+//                        int port = Integer.parseInt(tfCreatePort.getText());
+//
+//                        ServerSocket sSocket = new ServerSocket(port);
+//                        Socket socket = sSocket.accept();
+//                        System.out.println("Client connected...");
+//
+//                        var printWriter = new PrintWriter(socket.getOutputStream(), true);
+//                        var bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//                        Platform.runLater(() -> switchToChatPage(bufferedReader, printWriter));
+//                        break;
+//                    } catch (IOException e) {
+//                        System.out.println("Invalid Port Number!");
+//                    }
+//                }
+//            }).start();
+
+            btCreate.setVisible(false);
+            btCreate.setManaged(false);
+            lbConnecting.setVisible(true);
+            lbConnecting.setManaged(true);
         }
-
-
     }
 
     private void switchToChatPage(BufferedReader bufferedReader, PrintWriter printWriter) {

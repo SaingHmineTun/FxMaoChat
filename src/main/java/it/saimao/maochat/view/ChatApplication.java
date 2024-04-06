@@ -1,4 +1,4 @@
-package it.saimao.maochat;
+package it.saimao.maochat.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

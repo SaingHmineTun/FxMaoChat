@@ -16,6 +16,8 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChatController implements Initializable {
 
@@ -31,7 +33,6 @@ public class ChatController implements Initializable {
 
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
-    private ObservableList<ChatMessage> messages;
 
 
     public ChatController(BufferedReader bufferedReader, PrintWriter printWriter) {
@@ -44,15 +45,16 @@ public class ChatController implements Initializable {
         lvMessages.setCellFactory(new ChatMessageCellFactory());
         startReaderThread();
         btSend.setOnAction(event -> {
-
             String message = tfMessage.getText();
             printWriter.println(message);
             lvMessages.getItems().add(new ChatMessage("Me", message, new Date()));
+            tfMessage.clear();
         });
     }
 
     private void startReaderThread() {
-        new Thread(() -> {
+        ExecutorService readerService = Executors.newVirtualThreadPerTaskExecutor();
+        readerService.submit(() -> {
             String message;
             while (true) {
                 try {
@@ -63,7 +65,7 @@ public class ChatController implements Initializable {
                     throw new RuntimeException(e);
                 }
             }
-        }).start();
+        });
     }
 
 }

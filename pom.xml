@@ -6,7 +6,7 @@
 
     <groupId>it.saimao</groupId>
     <artifactId>MaoChat</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>MaoChat</name>
 
     <properties>
@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>it.saimao.maochat/it.saimao.maochat.ChatApplication</mainClass>
+                            <mainClass>it.saimao.maochat/it.saimao.maochat.view.ChatApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
