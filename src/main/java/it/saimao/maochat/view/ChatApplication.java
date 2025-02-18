@@ -13,8 +13,8 @@ public class ChatApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ChatApplication.class.getResource("/fxml/choice-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load(), 360, 360);
+        stage.setTitle("Mao Chat");
         stage.setScene(scene);
         stage.show();
     }
