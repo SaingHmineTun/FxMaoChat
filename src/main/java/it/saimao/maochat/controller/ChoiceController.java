@@ -15,9 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.URL;
+import java.net.*;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,8 +40,12 @@ public class ChoiceController implements Initializable {
     @FXML
     private Label lbConnecting;
 
+    @FXML
+    private Label lbIpAddress;
 
-    private void initUi() {
+
+    private void initUi() throws UnknownHostException {
+        lbIpAddress.setText(Inet4Address.getLocalHost().getHostAddress());
         btCreate.setOnAction(event -> createChatGroup());
         btJoin.setOnAction(event -> joinChatGroup());
     }
@@ -132,6 +134,10 @@ public class ChoiceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initUi();
+        try {
+            initUi();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

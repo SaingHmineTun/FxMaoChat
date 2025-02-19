@@ -44,6 +44,9 @@ public class ChatController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lvMessages.setCellFactory(new ChatMessageCellFactory());
         startReaderThread();
+        tfMessage.setOnAction(event -> {
+            btSend.fire();
+        });
         btSend.setOnAction(event -> {
             String message = tfMessage.getText();
             printWriter.println(message);

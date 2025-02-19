@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.saimao.maochat.controller.ChoiceController">
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.saimao.maochat.controller.ChoiceController">
     <tabs>
-        <Tab style="-fx-font-family: Impact; -fx-font-size: 14;" text="Create Chat">
+        <Tab style="-fx-font-family: Impact; -fx-font-size: 16;" text="Create Chat">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
                         <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
+                        <Label fx:id="lbIpAddress" style="-fx-font-family: impact; -fx-font-size: 16;" text="IP Address">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                                 <TextField fx:id="tfCreatePort" prefHeight="40.0" promptText="Port Number">
                                     <font>
-                                        <Font name="Impact" size="12.0" />
+                                        <Font name="Impact" size="16.0" />
                                     </font>
                                 </TextField>
                                 <Button fx:id="btCreate" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Create">
                                     <font>
-                                        <Font name="Impact" size="18.0" />
+                                        <Font name="Impact" size="16.0" />
                                     </font>
                                 </Button>
                                 <Label fx:id="lbConnecting" managed="false" prefHeight="100.0" text="Connecting..." visible="false">
@@ -42,25 +42,25 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab style="-fx-font-family: Impact; -fx-font-size: 14;" text="Join Chat">
+        <Tab style="-fx-font-family: Impact; -fx-font-size: 16;" text="Join Chat">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <TextField fx:id="tfJoinHost" prefHeight="40.0" promptText="Host Number">
                                     <font>
-                                        <Font name="Impact" size="12.0" />
+                                        <Font name="Impact" size="16.0" />
                                     </font>
                                 </TextField>
                                 <TextField fx:id="tfJoinPort" layoutX="10.0" layoutY="10.0" prefHeight="40.0" promptText="Port Number">
                                     <font>
-                                        <Font name="Impact" size="12.0" />
+                                        <Font name="Impact" size="16.0" />
                                     </font>
                                 </TextField>
                                 <Button fx:id="btJoin" maxWidth="100.0" mnemonicParsing="false" prefHeight="50.0" text="Join">
                                     <font>
-                                        <Font name="Impact" size="18.0" />
+                                        <Font name="Impact" size="16.0" />
                                     </font>
                                 </Button>
                             </children>
